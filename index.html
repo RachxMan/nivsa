@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#140f1f">
+<title>One Year of Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#140f1f; --plum:#2a1233; --wine:#6b1d45;
+  --rose:#ff8fa3; --gold:#e9b8a2; --champagne:#f6e6c8; --muted:#b9a7c4; --leaf:#7fae92;
+  --glass:rgba(255,255,255,.07); --glass-line:rgba(255,255,255,.16);
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --glow:rgba(255,143,163,0); --sy:0;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--ink);scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{color:var(--champagne);font-family:var(--sans);overflow-x:hidden;min-height:100dvh}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 105%,var(--glow),transparent 60%),radial-gradient(90% 60% at 50% -10%,rgba(107,29,69,.55),transparent 65%);transition:background 1.4s}
+body.love{--glow:rgba(255,143,163,.38)}
+
+/* Moving background */
+.aurora{position:fixed;inset:-10%;z-index:0;pointer-events:none;transform:translate3d(0,calc(var(--sy) * -.05px),0)}
+.blob{position:absolute;border-radius:50%;will-change:transform}
+.b1{width:min(70vw,560px);aspect-ratio:1;left:-15vw;top:5vh;background:radial-gradient(circle,rgba(107,29,69,.8),transparent 65%);animation:f1 22s ease-in-out infinite alternate}
+.b2{width:min(60vw,500px);aspect-ratio:1;right:-18vw;top:38vh;background:radial-gradient(circle,rgba(255,143,163,.32),transparent 65%);animation:f2 28s ease-in-out infinite alternate}
+.b3{width:min(80vw,640px);aspect-ratio:1;left:8vw;bottom:-24vh;background:radial-gradient(circle,rgba(124,64,160,.5),transparent 65%);animation:f3 26s ease-in-out infinite alternate}
+.b4{width:min(40vw,320px);aspect-ratio:1;left:45vw;top:12vh;background:radial-gradient(circle,rgba(233,184,162,.22),transparent 65%);animation:f4 20s ease-in-out infinite alternate}
+@keyframes f1{to{transform:translate(28vw,18vh) scale(1.25)}}
+@keyframes f2{to{transform:translate(-30vw,-16vh) scale(.8)}}
+@keyframes f3{to{transform:translate(-18vw,-22vh) scale(1.2)}}
+@keyframes f4{to{transform:translate(-34vw,30vh) scale(1.4)}}
+#sky{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
+#prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:30;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--champagne),var(--gold),var(--rose))}
+
+/* Scroll reveal */
+[data-r]{opacity:0;transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1),filter .9s ease;transition-delay:calc(var(--i,0) * 130ms)}
+[data-r="up"]{transform:translateY(48px);filter:blur(8px)}
+[data-r="rise"]{transform:translateY(40px)}
+[data-r="zoom"]{transform:scale(.86)}
+[data-r].in{opacity:1;transform:none;filter:none}
+
+.sec{position:relative;z-index:2;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;scroll-snap-align:start;
+  padding:calc(env(safe-area-inset-top,0px) + 56px) 26px calc(env(safe-area-inset-bottom,0px) + 56px)}
+h1,h2{font-family:var(--serif);font-weight:300;font-style:italic;letter-spacing:-.02em;line-height:.98}
+.hero{font-size:clamp(68px,23vw,124px)}
+.hero .ln{display:block;padding:0 .08em .06em;background:linear-gradient(170deg,var(--champagne) 10%,var(--gold) 55%,var(--rose) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(34px,10.5vw,52px);color:var(--champagne);margin-bottom:14px}
+.sub{font-size:16px;line-height:1.55;color:var(--muted);max-width:30ch;margin:0 auto}
+.sub strong{color:var(--champagne);font-weight:500}
+
+.btn{appearance:none;border:0;cursor:pointer;font:600 16px/1 var(--sans);color:#2a1233;padding:17px 34px;border-radius:999px;margin-top:28px;
+  background:linear-gradient(135deg,var(--champagne),var(--gold) 55%,var(--rose));
+  box-shadow:0 10px 34px -8px rgba(255,143,163,.55),inset 0 1px 0 rgba(255,255,255,.6);transition:transform .2s,opacity .4s}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:var(--glass);color:var(--champagne);border:1px solid var(--glass-line);box-shadow:none;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+button:focus-visible,.switch:focus-visible,.cstar:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+
+/* Toggle */
+.switch{position:relative;width:92px;height:48px;border-radius:999px;cursor:pointer;border:1px solid var(--glass-line);
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:background .5s,box-shadow .5s}
+.switch .knob{position:absolute;top:4px;left:4px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--champagne),var(--gold));color:var(--wine);font-size:18px;transition:transform .5s cubic-bezier(.5,1.6,.4,1),background .5s}
+.switch[aria-checked="true"]{background:linear-gradient(135deg,rgba(255,143,163,.45),rgba(107,29,69,.6));box-shadow:0 0 40px rgba(255,143,163,.5)}
+.switch[aria-checked="true"] .knob{transform:translateX(44px);background:linear-gradient(135deg,#fff,var(--rose))}
+.switch-label{margin-top:14px;font-size:14px;color:var(--muted);min-height:20px}
+.cue{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--glass-line),var(--rose));position:relative;overflow:hidden}
+.cue i::after{content:"";position:absolute;left:-1px;top:-12px;width:3px;height:12px;border-radius:2px;background:var(--champagne);animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{to{top:40px}}
+
+/* Flower garden with scenery */
+.garden{position:relative;width:min(88vw,380px);height:min(54dvh,420px);margin-top:24px;border-radius:28px;overflow:hidden;cursor:pointer;touch-action:pan-y;
+  border:1px solid var(--glass-line);transition:box-shadow 1.2s,border-color 1.2s;-webkit-user-select:none;user-select:none;background:#1b0f2e}
+.garden.full{box-shadow:0 0 70px rgba(255,143,163,.45);border-color:rgba(255,143,163,.6)}
+.garden-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.g-halo{animation:halo 5s ease-in-out infinite alternate}
+@keyframes halo{from{opacity:.6}to{opacity:1}}
+.cloud{animation:drift 26s ease-in-out infinite alternate}
+.cloud.c2{animation-duration:34s;animation-direction:alternate-reverse}
+@keyframes drift{from{transform:translateX(-46px)}to{transform:translateX(52px)}}
+.blade{fill:none;stroke:#4f7f69;stroke-width:1.6;stroke-linecap:round;opacity:.75;animation:bladeSway var(--bt,4s) ease-in-out var(--bd,0s) infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes bladeSway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.gstar{fill:#fff;animation:tw 3.2s ease-in-out infinite alternate}
+.ff{position:absolute;z-index:2;width:5px;height:5px;border-radius:50%;background:#ffe9a8;box-shadow:0 0 10px 3px rgba(255,220,130,.8);pointer-events:none;animation:ffmove var(--t,7s) ease-in-out var(--d,0s) infinite alternate}
+@keyframes ffmove{0%{transform:translate(0,0);opacity:.15}50%{opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:.3}}
+.plot{position:absolute;inset:0;z-index:1}
+.garden-hint{position:absolute;inset:0;z-index:2;display:grid;place-items:center;pointer-events:none;font:italic 300 26px/1.2 var(--serif);color:var(--champagne);text-shadow:0 2px 16px rgba(20,10,30,.9);transition:opacity .6s}
+.garden-hint.off{opacity:0}
+.flower{position:absolute;width:120px;height:180px;margin:-180px 0 0 -60px;transform-origin:50% 100%;pointer-events:none}
+.flower svg{overflow:visible;transform-origin:50% 100%;animation:sway var(--sw,4s) ease-in-out var(--sd,0s) infinite alternate}
+@keyframes sway{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+.stem{fill:none;stroke:var(--leaf);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1)}
+.leaf{fill:var(--leaf);opacity:.92;transform:scale(0);transform-origin:0 0;transition:transform .7s cubic-bezier(.3,1.5,.5,1) .55s}
+.petal{transform:scale(0);transform-origin:0 0;stroke:rgba(255,255,255,.22);stroke-width:.6;transition:transform .8s cubic-bezier(.3,1.5,.5,1)}
+.core{fill:#ffd98a;transform:scale(0);transform-origin:0 0;transition:transform .6s cubic-bezier(.3,1.6,.5,1) 1.7s}
+.flower.on .stem{stroke-dashoffset:0}
+.flower.on .leaf,.flower.on .petal,.flower.on .core{transform:scale(1)}
+.fall{position:absolute;top:-16px;z-index:3;width:10px;height:14px;border-radius:100% 0 100% 0;background:var(--rose);opacity:.8;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(calc(min(54dvh,420px) + 40px)) rotate(420deg);opacity:0}}
+.count{margin-top:18px;font:italic 400 20px/1.2 var(--serif);color:var(--champagne)}
+.count-note{margin-top:8px;min-height:44px;font-size:15px;color:var(--muted);max-width:30ch}
+
+/* Connect the stars */
+.constel{position:relative;width:min(88vw,380px);aspect-ratio:1;margin-top:24px;border-radius:28px;overflow:hidden;touch-action:pan-y;
+  border:1px solid var(--glass-line);background:radial-gradient(80% 70% at 50% 45%,rgba(107,29,69,.4),rgba(20,15,31,.6));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:box-shadow 1.2s,border-color 1.2s}
+.constel.full{box-shadow:0 0 70px rgba(255,143,163,.45);border-color:rgba(255,143,163,.6)}
+.constel svg{width:100%;height:100%;display:block}
+.dstar{fill:#fff;animation:tw 3s ease-in-out var(--d,0s) infinite alternate}
+@keyframes tw{from{opacity:.12}to{opacity:.8}}
+.cstar{cursor:pointer;outline:none}
+.spark{fill:var(--muted);opacity:.55;transform:scale(.8);transform-origin:0 0;transition:transform .5s cubic-bezier(.3,1.6,.5,1),fill .4s,opacity .4s}
+.ring{fill:none;stroke:var(--rose);stroke-width:1.4;opacity:0;transform-origin:0 0}
+.cstar.next .spark{fill:var(--champagne);opacity:1;animation:beat 1.1s ease-in-out infinite}
+.cstar.next .ring{animation:ripple 1.6s ease-out infinite}
+.cstar.done .spark{fill:#fff1d4;opacity:1;transform:scale(1.15);filter:drop-shadow(0 0 5px rgba(255,143,163,.95))}
+.cstar.shake .spark{animation:shake .35s}
+@keyframes beat{50%{transform:scale(1.35)}}
+@keyframes ripple{from{transform:scale(.6);opacity:.9}to{transform:scale(2.6);opacity:0}}
+@keyframes shake{25%{transform:scale(.8) translateX(-3px)}75%{transform:scale(.8) translateX(3px)}}
+.cline{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .6s ease;filter:drop-shadow(0 0 4px rgba(255,143,163,.8))}
+.cline.on{stroke-dashoffset:0}
+.hfill{fill:rgba(255,143,163,0);transition:fill 1.6s}
+.constel.full .hfill{fill:rgba(255,143,163,.24)}
+.shoot{position:absolute;top:12%;left:78%;width:70px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(28deg);opacity:0;animation:shoot 7s ease-in 1s infinite;pointer-events:none}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(28deg)}4%{opacity:1}14%{opacity:0;transform:translate(-190px,100px) rotate(28deg)}100%{opacity:0}}
+
+/* Days */
+.days-num{font:300 italic clamp(96px,34vw,170px)/.9 var(--serif);background:linear-gradient(170deg,var(--champagne),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .06em .08em}
+.clock{margin-top:22px;display:flex;gap:10px}
+.clock div{min-width:70px;padding:12px 8px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.clock b{display:block;font:400 28px/1 var(--serif);color:var(--champagne);font-variant-numeric:tabular-nums}
+.clock span{font-size:12px;color:var(--muted)}
+
+/* Letter */
+.letter{width:100%;max-width:420px;text-align:left;padding:30px 26px;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+  border:1px solid var(--glass-line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.letter p{font:400 italic 20px/1.65 var(--serif);white-space:pre-wrap;color:var(--champagne);min-height:9em}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--rose);vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.letter .from{margin-top:18px;font:300 italic 18px var(--serif);color:var(--gold);opacity:0;transition:opacity 1s}
+.letter .from.on{opacity:1}
+.tap-hint{margin-top:16px;font-size:13px;color:var(--muted)}
+
+/* Closing illustration */
+.scene{width:min(90vw,420px);margin:6px 0 4px;border-radius:30px;overflow:hidden;border:1px solid var(--glass-line);box-shadow:0 30px 80px -20px rgba(255,143,163,.35)}
+.scene svg{display:block;width:100%;height:auto}
+.l-moon{transform:translateY(calc((1 - var(--sp,0)) * 70px))}
+.l-far{transform:translateY(calc((1 - var(--sp,0)) * 34px))}
+.l-mid{transform:translateY(calc((1 - var(--sp,0)) * 18px))}
+.sstar{fill:#fff;animation:tw 3s ease-in-out var(--d,0s) infinite alternate}
+.lantern{animation:rise var(--t,16s) linear var(--d,0s) infinite;transform-box:fill-box}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:1}50%{transform:translate(var(--sx,10px),-150px)}100%{transform:translate(calc(var(--sx,10px) * -1),-330px);opacity:0}}
+.blossom{fill:var(--rose);opacity:.85;animation:tw 2.6s ease-in-out var(--d,0s) infinite alternate}
+.pfall{fill:#ffb3c1;animation:pfall var(--t,8s) linear var(--d,0s) infinite;opacity:0}
+@keyframes pfall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.9}100%{transform:translate(50px,170px) rotate(360deg);opacity:0}}
+.heart-up{fill:var(--rose);font-size:15px;animation:hup 5s ease-out var(--d,0s) infinite;opacity:0}
+@keyframes hup{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-70px);opacity:0}}
+.fly{fill:#ffe9a8;animation:tw 2s ease-in-out var(--d,0s) infinite alternate;filter:drop-shadow(0 0 4px rgba(255,220,130,.9))}
+.sshoot{stroke:#fff;stroke-width:1.6;stroke-linecap:round;opacity:0;animation:sshoot 9s ease-in 2s infinite}
+@keyframes sshoot{0%{opacity:0;transform:translate(0,0)}3%{opacity:1}12%{opacity:0;transform:translate(-120px,70px)}100%{opacity:0}}
+
+#sound{position:fixed;z-index:35;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--glass-line);background:var(--glass);
+  color:var(--champagne);font-size:17px;cursor:pointer;display:none;place-items:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#sound.show{display:grid}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-r]{opacity:1;transform:none;filter:none;transition:none}
+  .blob,.flower svg,.cue i::after,.cloud,.blade,.ff,.lantern,.pfall,.heart-up,.shoot,.sshoot,.g-halo{animation:none}
+  .stem,.leaf,.petal,.core{transition-duration:.01s;transition-delay:0s}
+}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div id="prog" aria-hidden="true"></div>
+<button id="sound" aria-label="Play or pause music">♪</button>
+
+<!-- 1. Opening -->
+<section class="sec" id="top">
+  <h1 class="hero"><span class="ln" data-r="up" style="--i:0">One</span><span class="ln" data-r="up" style="--i:1">year.</span></h1>
+  <p class="sub" data-r="up" style="--i:2;margin-top:22px">From <strong data-me></strong> to <strong data-partner></strong>. Turn on the mood first, then scroll slowly.</p>
+  <div data-r="zoom" style="--i:3;margin-top:38px"><div class="switch" id="loveSwitch" role="switch" aria-checked="false" aria-label="Love mode" tabindex="0"><div class="knob">♥</div></div></div>
+  <div class="switch-label" id="switchLabel" data-r="rise" style="--i:4">Slide to turn on love mode</div>
+  <div class="cue"><span>Scroll down</span><i></i></div>
+</section>
+
+<!-- 2. Flower garden -->
+<section class="sec" id="garden-sec">
+  <h2 data-r="up">Plant our garden.</h2>
+  <p class="sub" data-r="up" style="--i:1">Every tap plants a flower. Plant twelve, one for each month.</p>
+  <div data-r="zoom" style="--i:2">
+    <div class="garden" id="garden" aria-label="Garden. Tap to plant a flower" role="button" tabindex="0">
+      <svg class="garden-bg" viewBox="0 0 380 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#150b27"/><stop offset=".5" stop-color="#46193f"/><stop offset=".8" stop-color="#b0506c"/><stop offset="1" stop-color="#eaa28f"/></linearGradient>
+          <linearGradient id="gground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2046"/><stop offset="1" stop-color="#140b1f"/></linearGradient>
+          <radialGradient id="gmoon" cx=".4" cy=".35"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#f1d6a8"/></radialGradient>
+        </defs>
+        <rect width="380" height="420" fill="url(#gsky)"/>
+        <g id="gstars"></g>
+        <g class="g-halo"><circle cx="292" cy="92" r="70" fill="rgba(246,230,200,.09)"/><circle cx="292" cy="92" r="48" fill="rgba(246,230,200,.12)"/></g>
+        <circle cx="292" cy="92" r="30" fill="url(#gmoon)"/>
+        <g class="cloud"><ellipse cx="90" cy="120" rx="46" ry="9" fill="rgba(255,200,210,.14)"/><ellipse cx="116" cy="112" rx="30" ry="8" fill="rgba(255,200,210,.14)"/></g>
+        <g class="cloud c2"><ellipse cx="230" cy="170" rx="52" ry="8" fill="rgba(255,200,210,.12)"/><ellipse cx="204" cy="164" rx="28" ry="7" fill="rgba(255,200,210,.12)"/></g>
+        <path d="M0 262 C60 232 120 236 180 252 C240 268 300 238 380 250 L380 420 L0 420Z" fill="#2a1638"/>
+        <path d="M0 290 C70 266 140 272 200 286 C270 300 330 276 380 284 L380 420 L0 420Z" fill="#33193f"/>
+        <rect y="298" width="380" height="122" fill="url(#gground)"/>
+        <g id="grass"></g>
+      </svg>
+      <div class="plot" id="plot"></div>
+      <div class="garden-hint" id="gardenHint">Tap here</div>
+    </div>
+  </div>
+  <div class="count" id="count" data-r="rise" style="--i:3">0 of 12 flowers</div>
+  <p class="count-note" id="countNote" data-r="rise" style="--i:4"></p>
+</section>
+
+<!-- 3. Connect the stars -->
+<section class="sec" id="star-sec">
+  <h2 data-r="up">Connect our stars.</h2>
+  <p class="sub" data-r="up" style="--i:1">Tap the twinkling star, starting from the bottom one, and see what constellation forms.</p>
+  <div data-r="zoom" style="--i:2">
+    <div class="constel" id="constel"><svg viewBox="0 0 300 300" id="cs" aria-label="Star map"></svg><div class="shoot" aria-hidden="true"></div></div>
+  </div>
+  <div class="count" id="count2" data-r="rise" style="--i:3">0 of 12 stars</div>
+  <p class="count-note" id="note2" data-r="rise" style="--i:4">Start from the bottom star.</p>
+</section>
+
+<!-- 4. Day counter -->
+<section class="sec" id="days-sec">
+  <p class="sub" data-r="up" style="margin-bottom:10px" id="daysLead">It has been</p>
+  <div class="days-num" id="daysNum" data-r="zoom" style="--i:1">0</div>
+  <h2 data-r="up" style="--i:2;margin:6px 0 0;font-size:clamp(28px,8vw,40px)">days together.</h2>
+  <div class="clock" data-r="rise" style="--i:3">
+    <div><b id="cH">00</b><span>hours</span></div><div><b id="cM">00</b><span>minutes</span></div><div><b id="cS">00</b><span>seconds</span></div>
+  </div>
+  <p class="sub" data-r="up" style="--i:4;margin-top:20px">And the number keeps growing.</p>
+</section>
+
+<!-- 5. Letter -->
+<section class="sec" id="letter-sec">
+  <div data-r="zoom" style="width:100%;max-width:420px">
+    <div class="letter" id="letter">
+      <p id="typed"></p>
+      <div class="from" id="from">From <span data-me></span>, with all my love.</div>
+    </div>
+  </div>
+  <p class="tap-hint" id="tapHint" data-r="rise" style="--i:2">Tap the card to read it all at once.</p>
+</section>
+
+<!-- 6. Penutup bergambar -->
+<section class="sec" id="end-sec">
+  <h2 data-r="up">The second year starts now.</h2>
+  <div class="scene" data-r="zoom" style="--i:1" id="scene">
+    <svg viewBox="0 0 360 480" role="img" aria-label="Two silhouettes sitting side by side on a hill beneath the moon, lanterns drifting into the sky">
+      <defs>
+        <linearGradient id="ssky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#110a22"/><stop offset=".45" stop-color="#3a1646"/><stop offset=".78" stop-color="#9c456b"/><stop offset="1" stop-color="#f0a58f"/></linearGradient>
+        <radialGradient id="smoon" cx=".4" cy=".35"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#f1d6a8"/></radialGradient>
+        <radialGradient id="lglow"><stop offset="0" stop-color="#ffd08a" stop-opacity=".95"/><stop offset="1" stop-color="#ffd08a" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="360" height="480" fill="url(#ssky)"/>
+      <g id="sceneStars"></g>
+      <line class="sshoot" x1="300" y1="40" x2="334" y2="22"/>
+      <g class="l-moon">
+        <circle cx="262" cy="118" r="94" fill="rgba(246,230,200,.06)"/><circle cx="262" cy="118" r="64" fill="rgba(246,230,200,.10)"/>
+        <circle cx="262" cy="118" r="40" fill="url(#smoon)"/>
+        <circle cx="251" cy="108" r="6" fill="rgba(200,170,130,.35)"/><circle cx="275" cy="131" r="8" fill="rgba(200,170,130,.3)"/><circle cx="271" cy="101" r="3.5" fill="rgba(200,170,130,.35)"/>
+      </g>
+      <g class="l-far"><path d="M0 330 C50 292 110 300 170 322 C230 344 290 300 360 318 L360 480 L0 480Z" fill="#2c1639"/></g>
+      <g class="l-mid"><path d="M0 362 C70 334 140 342 210 358 C270 372 320 350 360 354 L360 480 L0 480Z" fill="#241130"/></g>
+      <g id="lanterns"></g>
+      <!-- cherry tree -->
+      <path d="M70 396 C68 360 72 330 66 298" stroke="#190c25" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M68 336 C50 326 40 318 30 300" stroke="#190c25" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M70 322 C88 312 98 305 106 290" stroke="#190c25" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <g fill="#2a1233"><circle cx="66" cy="282" r="34"/><circle cx="40" cy="298" r="22"/><circle cx="96" cy="290" r="24"/><circle cx="66" cy="260" r="22"/></g>
+      <g id="blossoms"></g>
+      <g id="petals"></g>
+      <!-- couple -->
+      <g fill="#0d0617">
+        <path d="M164 384 C164 354 169 344 180 344 C191 344 196 354 196 384Z"/>
+        <path d="M186 384 C186 356 191 347 202 347 C213 347 218 356 218 384Z"/>
+        <circle cx="181" cy="334" r="8.6"/><circle cx="201" cy="337" r="8.6"/>
+      </g>
+      <g id="hearts"></g>
+      <path d="M0 392 C90 372 150 362 200 364 C260 366 310 380 360 388 L360 480 L0 480Z" fill="#170b22"/>
+      <path d="M0 392 C90 372 150 362 200 364 C260 366 310 380 360 388" fill="none" stroke="rgba(240,165,143,.28)" stroke-width="1.4"/>
+      <g id="flies"></g>
+    </svg>
+  </div>
+  <p class="sub" data-r="up" style="--i:2;margin-top:22px">Happy one year, <strong data-partner></strong>. Thank you for being the coziest place to come home to.</p>
+  <div data-r="rise" style="--i:3"><button class="btn ghost" id="replay">Start over</button></div>
+</section>
+
+<script>
+/* ============ EDIT THIS PART ============ */
+const CONFIG = {
+  partner: "Love",          // her/his name or nickname
+  me:      "Me",            // your name or nickname
+  startDate: "2025-10-10",  // the day you got together (YYYY-MM-DD)
+  music: "",                // e.g. "song.mp3" (same folder as this file). Leave empty for no music
+  letter: "A year ago I didn't know that ordinary days could feel this important.\n\nThank you for being patient, for laughing at the silly things, and for staying through the heavy days.\n\nHappy one year, {partner}. I want a second year, a third, and every one after that, for as long as you want them too.",
+};
+/* ========================================= */
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+$$('[data-partner]').forEach(e=>e.textContent=CONFIG.partner);
+$$('[data-me]').forEach(e=>e.textContent=CONFIG.me);
+function svgEl(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+
+/* ---- Scroll reveal animations (replay each time they enter the screen) ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in',e.isIntersecting)),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+$$('[data-r]').forEach(el=>reduce?el.classList.add('in'):io.observe(el));
+
+/* ---- Scroll: progress bar and parallax ---- */
+const prog=$('#prog'),scene=$('#scene');
+function onScroll(){
+  const m=document.documentElement.scrollHeight-innerHeight;
+  prog.style.transform=`scaleX(${m>0?scrollY/m:0})`;
+  document.documentElement.style.setProperty('--sy',scrollY);
+  const r=scene.getBoundingClientRect();
+  scene.style.setProperty('--sp',Math.max(0,Math.min(1,1-r.top/innerHeight)).toFixed(3));
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ---- Starry sky, hearts, shooting stars ---- */
+const cv=$('#sky'),ctx=cv.getContext('2d');let W,H,DPR,stars=[],hearts=[],shoots=[];
+function size(){DPR=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR;
+  stars=Array.from({length:Math.round(innerWidth*innerHeight/6500)},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.2+.3)*DPR,p:Math.random()*6.28,s:Math.random()*.02+.005}))}
+addEventListener('resize',size);size();
+let loveOn=false;
+function frame(){
+  ctx.clearRect(0,0,W,H);
+  for(const s of stars){s.p+=reduce?0:s.s;ctx.globalAlpha=.25+.55*Math.abs(Math.sin(s.p));ctx.fillStyle='#f6e6c8';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.283);ctx.fill()}
+  if(!reduce&&Math.random()<.0035)shoots.push({x:rnd(W*.3,W),y:rnd(0,H*.4),vx:-rnd(7,11)*DPR,vy:rnd(3,5)*DPR,l:1});
+  shoots=shoots.filter(s=>s.l>0);
+  for(const s of shoots){const g=ctx.createLinearGradient(s.x,s.y,s.x-s.vx*7,s.y-s.vy*7);g.addColorStop(0,`rgba(255,255,255,${s.l})`);g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.globalAlpha=1;ctx.strokeStyle=g;ctx.lineWidth=1.8*DPR;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x-s.vx*7,s.y-s.vy*7);ctx.stroke();s.x+=s.vx;s.y+=s.vy;s.l-=.02}
+  if(loveOn&&!reduce&&hearts.length<26&&Math.random()<.06)hearts.push({x:Math.random()*W,y:H+30*DPR,s:(Math.random()*14+10)*DPR,v:(Math.random()*.6+.35)*DPR,w:Math.random()*6.28,a:Math.random()*.4+.25});
+  hearts=hearts.filter(h=>h.y>-40*DPR);ctx.textAlign='center';ctx.fillStyle='#ff8fa3';
+  for(const h of hearts){h.y-=h.v;h.w+=.02;ctx.globalAlpha=h.a;ctx.font=`${h.s}px serif`;ctx.fillText('♥',h.x+Math.sin(h.w)*14*DPR,h.y)}
+  ctx.globalAlpha=1;requestAnimationFrame(frame)
+}
+requestAnimationFrame(frame);
+
+/* ---- Music ---- */
+let audio=null;const soundBtn=$('#sound');
+if(CONFIG.music){audio=new Audio(CONFIG.music);audio.loop=true;audio.volume=.7;audio.addEventListener('error',()=>{audio=null;soundBtn.classList.remove('show')})}
+function playMusic(){if(audio){audio.play().then(()=>{soundBtn.classList.add('show');soundBtn.textContent='♪'}).catch(()=>{})}}
+soundBtn.addEventListener('click',()=>{if(!audio)return;if(audio.paused){audio.play();soundBtn.textContent='♪'}else{audio.pause();soundBtn.textContent='×'}});
+
+/* ---- Love mode ---- */
+const sw=$('#loveSwitch');
+function toggleLove(){
+  loveOn=!loveOn;sw.setAttribute('aria-checked',loveOn);document.body.classList.toggle('love',loveOn);
+  $('#switchLabel').textContent=loveOn?'Love mode is on. Go ahead and scroll.':'Slide to turn on love mode';
+  if(loveOn){playMusic();if(navigator.vibrate)navigator.vibrate(30)}else if(audio)audio.pause();
+}
+sw.addEventListener('click',toggleLove);
+sw.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleLove()}});
+
+/* ---- Flower garden: scenery ---- */
+const garden=$('#garden'),plot=$('#plot');
+(function gardenScene(){
+  const gs=$('#gstars');for(let i=0;i<44;i++)svgEl('circle',{cx:rnd(0,380),cy:rnd(0,230),r:rnd(.5,1.5),class:'gstar',style:`animation-delay:${rnd(0,3).toFixed(1)}s`},gs);
+  const gr=$('#grass');
+  for(let i=0;i<90;i++){const x=rnd(0,380),y=rnd(312,420),h=rnd(9,22),b=rnd(-5,5);
+    svgEl('path',{d:`M${x.toFixed(1)} ${y.toFixed(1)} q ${b.toFixed(1)} ${-h*.5} ${(b*1.4).toFixed(1)} ${-h.toFixed(1)}`,class:'blade',style:`--bt:${rnd(3,5).toFixed(1)}s;--bd:${rnd(-3,0).toFixed(1)}s`},gr)}
+  for(let i=0;i<9;i++){const f=document.createElement('span');f.className='ff';
+    f.style.cssText=`left:${rnd(6,92).toFixed(0)}%;top:${rnd(38,90).toFixed(0)}%;--dx:${rnd(-40,40).toFixed(0)}px;--dy:${rnd(-40,20).toFixed(0)}px;--t:${rnd(5,9).toFixed(1)}s;--d:${rnd(-6,0).toFixed(1)}s`;
+    garden.appendChild(f)}
+})();
+
+/* ---- Flower garden: game ---- */
+const PAL=[['#ff8fa3','#ffc4cf'],['#e9b8a2','#f6e6c8'],['#d4568a','#ff8fa3'],['#f6e6c8','#ffd9a8'],['#ffb3c1','#fff0f3']];
+let planted=0,reached=false;
+function ring(n,off,ry,rx,cy,col,delay){let s='';for(let i=0;i<n;i++){s+=`<g transform="rotate(${off+i*360/n})"><ellipse class="petal" cx="0" cy="${cy}" rx="${rx}" ry="${ry}" fill="${col}" style="transition-delay:${(delay+i*.06).toFixed(2)}s"/></g>`}return s}
+function plant(x,y){
+  const gh=garden.clientHeight,gw=garden.clientWidth,s=Math.max(gw/380,gh/420),groundTop=gh-122*s;
+  y=Math.min(Math.max(y,groundTop+6),gh-8);
+  let h=70+Math.random()*50;h=Math.min(h,y-42);
+  const sc=.72+.5*((y-groundTop)/Math.max(1,gh-groundTop)),pal=PAL[Math.floor(Math.random()*PAL.length)];
+  const el=document.createElement('div');el.className='flower';
+  el.style.cssText=`left:${x}px;top:${y}px;transform:scale(${sc.toFixed(2)});z-index:${Math.round(y)}`;
+  el.innerHTML=`<svg viewBox="-60 -180 120 180" width="120" height="180" aria-hidden="true" style="--sw:${(3+Math.random()*2).toFixed(1)}s;--sd:${(Math.random()*-3).toFixed(1)}s">
+    <path class="stem" pathLength="1" d="M0 0 C 8 ${-h*.33}, -8 ${-h*.66}, 0 ${-h}"/>
+    <g transform="translate(0,${-h*.3}) rotate(-35)"><ellipse class="leaf" cx="11" cy="0" rx="11" ry="5"/></g>
+    <g transform="translate(0,${-h*.55}) rotate(35)"><ellipse class="leaf" cx="-11" cy="0" rx="11" ry="5"/></g>
+    <g transform="translate(0,${-h})">${ring(7,0,17,9,-19,pal[0],.95)}${ring(5,26,11,6.5,-12,pal[1],1.4)}<circle class="core" r="5.5"/></g>
+  </svg>`;
+  plot.appendChild(el);
+  if(plot.children.length>40)plot.firstElementChild.remove();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('on')));
+  planted++;$('#gardenHint').classList.add('off');
+  $('#count').textContent=planted<=12?`${planted} of 12 flowers`:`${planted} flowers`;
+  if(navigator.vibrate)navigator.vibrate(15);
+  if(planted===6)$('#countNote').textContent='Halfway there. Keep planting.';
+  if(planted===12&&!reached){reached=true;garden.classList.add('full');
+    $('#countNote').textContent='Twelve months, twelve flowers. The garden is ours now.';rain()}
+}
+function rain(){
+  if(reduce)return;
+  for(let i=0;i<22;i++){const p=document.createElement('span');p.className='fall';
+    p.style.cssText=`left:${Math.random()*100}%;animation-duration:${(5+Math.random()*4).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s;background:${PAL[i%PAL.length][0]}`;
+    garden.appendChild(p);setTimeout(()=>p.remove(),10000)}
+}
+let gp=null;
+garden.addEventListener('pointerdown',e=>{gp={x:e.clientX,y:e.clientY}});
+garden.addEventListener('pointerup',e=>{
+  if(!gp)return;
+  if(Math.hypot(e.clientX-gp.x,e.clientY-gp.y)<10){const r=garden.getBoundingClientRect();plant(e.clientX-r.left,e.clientY-r.top)}
+  gp=null});
+garden.addEventListener('pointercancel',()=>gp=null);
+garden.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();plant(30+Math.random()*(garden.clientWidth-60),garden.clientHeight*(.7+Math.random()*.28))}});
+
+/* ---- Connect the stars ---- */
+const cs=$('#cs'),constel=$('#constel');let cIdx=0,cPts=[],cStars=[],gLines,gStars;
+const SPARK='M0 -10 L2.4 -2.4 L10 0 L2.4 2.4 L0 10 L-2.4 2.4 L-10 0 L-2.4 -2.4Z';
+function heartXY(t){return[150+8*16*Math.pow(Math.sin(t),3),150-8*((13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))+2.5)]}
+function buildConstel(){
+  cs.innerHTML='';constel.classList.remove('full');cIdx=0;cPts=[];cStars=[];
+  const bg=svgEl('g',{},cs);for(let i=0;i<38;i++)svgEl('circle',{cx:rnd(6,294),cy:rnd(6,294),r:rnd(.5,1.3),class:'dstar',style:`--d:${rnd(0,3).toFixed(1)}s`},bg);
+  let d='';for(let i=0;i<=90;i++){const[x,y]=heartXY(i/90*Math.PI*2);d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}
+  svgEl('path',{d:d+'Z',class:'hfill'},cs);
+  gLines=svgEl('g',{},cs);gStars=svgEl('g',{},cs);
+  for(let k=0;k<12;k++){
+    const[x,y]=heartXY(Math.PI+k*Math.PI*2/12);cPts.push([x,y]);
+    const g=svgEl('g',{transform:`translate(${x.toFixed(1)} ${y.toFixed(1)})`,class:'cstar',role:'button',tabindex:'0','aria-label':'Star '+(k+1)},gStars);
+    svgEl('circle',{r:22,fill:'transparent'},g);svgEl('circle',{r:10,class:'ring'},g);svgEl('path',{d:SPARK,class:'spark'},g);
+    g.addEventListener('click',()=>tapStar(k));
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tapStar(k)}});
+    cStars.push(g);
+  }
+  cStars[0].classList.add('next');
+  $('#count2').textContent='0 of 12 stars';$('#note2').textContent='Start from the bottom star.';
+}
+function addLine(a,b){
+  const p=svgEl('path',{d:`M${cPts[a][0].toFixed(1)} ${cPts[a][1].toFixed(1)}L${cPts[b][0].toFixed(1)} ${cPts[b][1].toFixed(1)}`,class:'cline',pathLength:'1'},gLines);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>p.classList.add('on')));
+}
+function tapStar(k){
+  if(cIdx>=12)return;
+  const g=cStars[k];
+  if(k!==cIdx){if(!g.classList.contains('done')){g.classList.remove('shake');void g.getBoundingClientRect();g.classList.add('shake');$('#note2').textContent='Follow the twinkling star.'}return}
+  g.classList.remove('next');g.classList.add('done');if(k>0)addLine(k-1,k);
+  cIdx++;if(navigator.vibrate)navigator.vibrate(12);
+  $('#count2').textContent=`${cIdx} of 12 stars`;
+  if(cIdx<12){cStars[cIdx].classList.add('next');
+    $('#note2').textContent=cIdx===1?'Nice. Now the next twinkling one.':cIdx===6?'The shape is starting to show…':cIdx===10?'Two more stars.':''}
+  else{addLine(11,0);setTimeout(()=>{constel.classList.add('full');$('#note2').textContent='A new constellation found. Its name: Us.';if(navigator.vibrate)navigator.vibrate([40,60,40])},700)}
+}
+buildConstel();
+
+/* ---- Day counter (counts up when it enters the screen) ---- */
+const start=new Date(CONFIG.startDate+'T00:00:00'),z2=n=>String(n).padStart(2,'0');
+let daysAnim=false;
+const daysNow=()=>Math.max(0,Date.now()-start.getTime());
+function tick(){const d=daysNow();
+  if(!daysAnim)$('#daysNum').textContent=Math.floor(d/864e5).toLocaleString('en-US');
+  $('#cH').textContent=z2(Math.floor(d/36e5)%24);$('#cM').textContent=z2(Math.floor(d/6e4)%60);$('#cS').textContent=z2(Math.floor(d/1e3)%60)}
+tick();setInterval(tick,1000);
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function countUp(){
+  if(reduce||daysAnim)return;daysAnim=true;const target=Math.floor(daysNow()/864e5),t0=performance.now(),D=1900;
+  (function step(now){const k=Math.min((now-t0)/D,1);$('#daysNum').textContent=Math.round(ease(k)*target).toLocaleString('en-US');
+    if(k<1)requestAnimationFrame(step);else daysAnim=false})(t0);
+}
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)countUp()}),{threshold:.55}).observe($('#days-sec'));
+
+/* ---- Letter: types itself when visible ---- */
+let typed=false,typeT=null;
+function startTyping(){
+  if(typed)return;typed=true;
+  const txt=CONFIG.letter.replaceAll('{partner}',CONFIG.partner),el=$('#typed');let i=0;
+  const caret='<span class="caret"></span>';
+  const finish=()=>{clearTimeout(typeT);i=txt.length;el.textContent=txt;$('#from').classList.add('on');$('#tapHint').style.visibility='hidden'};
+  $('#letter').onclick=()=>{if(i<txt.length)finish()};
+  if(reduce){finish();return}
+  (function next(){
+    if(i>=txt.length){finish();return}
+    i++;el.innerHTML=txt.slice(0,i).replace(/</g,'&lt;')+caret;
+    const ch=txt[i-1];typeT=setTimeout(next,ch==='.'||ch===','?260:ch==='\n'?380:38);
+  })();
+}
+new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)startTyping()}),{threshold:.55}).observe($('#letter-sec'));
+
+/* ---- Closing illustration ---- */
+(function illustration(){
+  const ss=$('#sceneStars');for(let i=0;i<46;i++)svgEl('circle',{cx:rnd(4,356),cy:rnd(4,290),r:rnd(.5,1.6),class:'sstar',style:`--d:${rnd(0,3).toFixed(1)}s`},ss);
+  const lt=$('#lanterns');
+  for(let i=0;i<8;i++){
+    const g=svgEl('g',{transform:`translate(${rnd(24,336).toFixed(0)} ${rnd(330,450).toFixed(0)})`},lt);
+    const l=svgEl('g',{class:'lantern',style:`--t:${rnd(13,21).toFixed(1)}s;--d:${(-rnd(0,16)).toFixed(1)}s;--sx:${rnd(8,22).toFixed(0)}px`},g);
+    svgEl('circle',{r:17,fill:'url(#lglow)'},l);svgEl('rect',{x:-5,y:-7,width:10,height:14,rx:3,fill:'#ffc47a'},l);svgEl('rect',{x:-3,y:-5,width:6,height:10,rx:2,fill:'#fff0c8'},l);
+  }
+  const bl=$('#blossoms');
+  [[48,290],[60,268],[84,282],[100,296],[70,248],[40,306],[88,262],[56,300],[78,300],[34,290],[104,282],[66,276],[50,274],[92,306]].forEach(([x,y])=>svgEl('circle',{cx:x,cy:y,r:rnd(2,3.4),class:'blossom',style:`--d:${rnd(0,2.6).toFixed(1)}s`},bl));
+  const pt=$('#petals');
+  for(let i=0;i<7;i++){const g=svgEl('g',{transform:`translate(${rnd(40,100).toFixed(0)} ${rnd(290,310).toFixed(0)})`},pt);
+    svgEl('ellipse',{rx:3.2,ry:1.8,class:'pfall',style:`--t:${rnd(6,10).toFixed(1)}s;--d:${(-rnd(0,8)).toFixed(1)}s`},g)}
+  const hs=$('#hearts');
+  for(let i=0;i<3;i++){const t=svgEl('text',{x:rnd(184,198).toFixed(0),y:318,class:'heart-up',style:`--d:${(i*1.7).toFixed(1)}s`,'text-anchor':'middle'},hs);t.textContent='♥'}
+  const fl=$('#flies');
+  for(let i=0;i<10;i++)svgEl('circle',{cx:rnd(10,350).toFixed(0),cy:rnd(372,450).toFixed(0),r:rnd(1.2,2.2),class:'fly',style:`--d:${rnd(0,2).toFixed(1)}s`},fl);
+})();
+
+/* ---- Start over ---- */
+$('#replay').addEventListener('click',()=>{
+  plot.innerHTML='';planted=0;reached=false;garden.classList.remove('full');$('#gardenHint').classList.remove('off');
+  $('#count').textContent='0 of 12 flowers';$('#countNote').textContent='';
+  buildConstel();
+  clearTimeout(typeT);typed=false;$('#typed').textContent='';$('#from').classList.remove('on');$('#tapHint').style.visibility='visible';
+  scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+});
+</script>
+</body>
+</html>
